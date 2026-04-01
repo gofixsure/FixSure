@@ -24,20 +24,25 @@ export default function TechnicianProfile() {
   const [editPhone, setEditPhone] = useState("");
   const [namePhoneSaved, setNamePhoneSaved] = useState(false);
 
-  const { data: tech, isLoading } = useQuery({
-    queryKey: ["technician", id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("id, full_name, city, phone, phone_verified, technician_profiles(*)")
-        .eq("id", id!)
-        .eq("role", "technician")
-        .single();
-      if (error) throw error;
-      return data as any;
-    },
-    enabled: !!id,
-  });
+const { data: tech, isLoading } = useQuery({
+  queryKey: ["technician", id],
+  queryFn: async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, full_name, city, phone, phone_verified, technician_profiles(*)")
+      .eq("id", id!)
+      .eq("role", "technician")
+      .maybeSingle(); // ✅ safer for public access
+
+    if (error) {
+      console.error("Technician fetch error:", error);
+      return null;
+    }
+
+    return data;
+  },
+  enabled: !!id,
+});
 
   const { data: reviews } = useQuery({
     queryKey: ["technician-reviews", id],
@@ -62,8 +67,15 @@ export default function TechnicianProfile() {
   }
 
   if (!tech) {
-    return <div className="container py-20 text-center text-muted-foreground">Technician not found.</div>;
-  }
+  return (
+    <div className="container py-20 text-center space-y-3">
+      <p className="text-xl font-semibold">Unable to load technician</p>
+      <p className="text-muted-foreground text-sm">
+        This profile may require login or might not exist.
+      </p>
+    </div>
+  );
+}
 
   const tp = tech.technician_profiles as any;
   const totalRepairs = tp?.total_repairs || 0;
