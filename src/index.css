@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 230 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 12%;
+
+    --primary: 252 85% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 20% 96%;
+    --secondary-foreground: 230 25% 12%;
+
+    --muted: 240 15% 95%;
+    --muted-foreground: 230 10% 45%;
+
+    --accent: 252 85% 96%;
+    --accent-foreground: 252 85% 40%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 12% 91%;
+    --input: 240 12% 91%;
+    --ring: 252 85% 60%;
+
+    --radius: 0.75rem;
+
+    --success: 152 60% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --hero-gradient: linear-gradient(135deg, hsl(252 85% 60%), hsl(220 90% 56%));
+    --card-shadow: 0 1px 3px 0 hsl(230 25% 12% / 0.06), 0 1px 2px -1px hsl(230 25% 12% / 0.06);
+    --card-shadow-hover: 0 10px 25px -5px hsl(252 85% 60% / 0.12), 0 8px 10px -6px hsl(252 85% 60% / 0.06);
+    --card-shadow-lg: 0 10px 30px -10px hsl(230 25% 12% / 0.1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--hero-gradient);
+  }
+  .text-gradient {
+    background: var(--hero-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .shadow-card {
+    box-shadow: var(--card-shadow);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+  .shadow-card-lg {
+    box-shadow: var(--card-shadow-lg);
+  }
+}

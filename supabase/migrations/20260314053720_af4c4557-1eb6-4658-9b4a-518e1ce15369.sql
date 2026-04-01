@@ -1,0 +1,1 @@
+ALTER TABLE public.claims DROP CONSTRAINT IF EXISTS claims_status_check;
